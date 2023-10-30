@@ -13,6 +13,13 @@ worker.onmessage = ({ data }) => {
   if (data.status !== 'done') return
   clock.stop()
   view.updateElapsedTime(`Process took ${took.replace('ago', '')}`)
+
+  if (!data.buffer) return
+
+  view.downloadBlobAsFile(
+    data.buffers,
+    data.fileName,
+  )
 }
 
 view.configureOnFileChange(file => {
@@ -29,6 +36,7 @@ view.configureOnFileChange(file => {
 
 })
 
+/*
 async function fakeFetch() {
   const filePath = '/videos/frag_bunny.mp4'
   const response = await fetch(filePath)
@@ -52,3 +60,4 @@ async function fakeFetch() {
 }
 
 fakeFetch()
+*/
